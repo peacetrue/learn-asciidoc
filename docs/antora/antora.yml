@@ -1,0 +1,12 @@
+name: learn-asciidoc
+title: 学习 AsciiDoc
+version: master
+asciidoc:
+  attributes:
+    numbered: '@'
+    website: https://peacetrue.github.io
+    app-group: com.github.peacetrue
+    app-name: learn-asciidoc
+start_page: ROOT:index.adoc
+nav:
+  - modules/ROOT/nav.adoc

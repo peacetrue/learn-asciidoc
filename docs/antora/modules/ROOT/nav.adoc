@@ -1,0 +1,6 @@
+* xref:index.adoc[]
+* xref:start.adoc[]
+* xref:diagram.adoc[]
+// * xref:diagram-test.adoc[]
+// * xref:faq.adoc[]
+* xref:version.adoc[]

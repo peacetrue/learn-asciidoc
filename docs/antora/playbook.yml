@@ -1,0 +1,22 @@
+# antora generate playbook-plain.yml
+# antora generate --clean --to-dir public playbook-plain.yml
+site:
+  title: 学习 AsciiDoc
+  url: https://peacetrue.github.io
+  start_page: learn-asciidoc::index.adoc
+asciidoc:
+  extensions:
+    - asciidoctor-kroki
+  attributes:
+    kroki-fetch-diagram: true
+    numbered: '@'
+content:
+  branches: master
+  sources:
+  - url: ../../
+    start_path: docs/antora
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+

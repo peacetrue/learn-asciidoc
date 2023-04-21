@@ -1,0 +1,77 @@
+= 快速入门
+
+以下介绍实操环境基于 macOS 13.3。
+
+== 安装
+
+.macOS
+[source%nowrap,bash]
+----
+#安装 Asciidoctor
+brew install asciidoctor
+----
+
+NOTE: 更多内容请参考 https://asciidoctor.org/#requirements[Asciidoctor Installation^]。
+
+== 生成 HTML
+
+生成单个 HTML 页面，然后在浏览器预览。
+
+[source%nowrap,bash,subs="specialchars,attributes"]
+----
+#获取当前 index.adoc
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/peacetrue/{app-name}/master/docs/antora/modules/ROOT/pages/index.adoc)"
+
+#生成 index.html
+asciidoctor index.adoc
+
+#使用 Chrome 打开 index.html
+open -a 'Google Chrome' index.html
+----
+
+HTML 页面预览效果如下：
+
+image::start/html-preview.png[width=75%]
+
+== 生成 Antora 站点
+
+使用 Antora 生成静态站点，然后在浏览器预览。
+
+[source%nowrap,bash]
+----
+#使用 npm 安装 Antora
+npm i -g @antora/cli@3.0 @antora/site-generator@3.0
+
+#检出当前仓库作为静态站点的样章
+git clone https://github.com/peacetrue/learn-asciidoc
+
+# 进入仓库中 Antora 文档目录
+cd learn-asciidoc/docs/antora
+
+#使用 Antora 生成站点
+antora generate playbook-plain.yml
+
+#使用 Chrome 打开站点
+open -a 'Google Chrome' build/site/index.html
+----
+
+静态站点预览效果如下：
+
+
+TIP: 更多内容请参考 https://docs.antora.org/antora/latest/playbook/asciidoc-extensions/[Asciidoctor Extensions^]。
+
+== 集成 IntelliJ IDEA
+
+以下介绍基于 IntelliJ IDEA 2023.1 (Ultimate Edition)。
+
+安装 AsciiDoc 插件：
+
+image::start/idea-asciidoc-plugin-install.png[]
+
+插件预览效果如下：
+
+image::start/idea-asciidoc-plugin-preview.png[]
+
+TIP: 更多内容请参考 https://intellij-asciidoc-plugin.ahus1.de/docs/users-guide/index.html[IntelliJ AsciiDoc Plugin^]。
+//  ls /Applications | sed -E 's/(.*).app/\1/g' | grep Chrome
+

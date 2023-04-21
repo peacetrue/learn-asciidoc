@@ -1,0 +1,55 @@
+name: build
+
+on:
+  push:
+    branches: [ test ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Antora
+        run: npm i -g @antora/cli@3.0 @antora/site-generator@3.0
+      - name: Generate
+        run: cd docs/antora && npm i asciidoctor-kroki && antora generate playbook.yml && ls -la build/site/learn-asciidoc
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Antora
+        run: npm i -g @antora/cli@3.0 @antora/site-generator@3.0
+      - name: Generate
+        run: cd docs/antora && npm i asciidoctor-kroki && antora generate playbook.yml && ls -la build/site/learn-asciidoc
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          shell: powershell
+      - name: Antora
+        run: npm i -g @antora/cli@3.0 @antora/site-generator@3.0
+      - name: Generate
+        run: cd docs/antora & npm i asciidoctor-kroki & antora generate playbook.yml & ls -la build/site/learn-asciidoc
+        shell: powershell

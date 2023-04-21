@@ -1,0 +1,143 @@
+= 集成绘图
+
+== 操作流程
+
+. 确定要绘制的图片，例如：虚拟内存布局图
+. 让 ChatGPT 帮你绘图，例如：请使用 Mermaid 绘制虚拟内存布局图
+. 粘贴 ChatGPT 的回答到文档中
+. 预览编辑调整发布
+
+请使用 Mermaid 绘制上述逻辑的流程图：
+
+.操作流程图
+[mermaid,target=diagram-flow,format=png]
+----
+graph TB;
+
+A(确定要绘制的图片)-->B(让 ChatGPT 帮你绘图);
+B-->C(粘贴 ChatGPT 的回答到文档中);
+C-->D(预览编辑发布);
+----
+
+文本绘图工具是基础，ChatGPT 辅助文本输入，AsciiDoc 展示图片输出。
+
+== 文本绘图工具
+
+有一些文本绘图工具可以用于创建图表，以下是其中比较流行的选择：
+
+Mermaid::
+这是一个 JavaScript 库，用于绘制流程图、序列图、类图和甘特图等。它也可以通过在 AsciiDoc 中编写 Mermaid 代码来创建图表。
+. https://mermaid.js.org/intro/[官网^]
+. https://github.com/mermaid-js/mermaid[GitHub^] 56.8k star
+PlantUML::
+这是一个基于文本的绘图工具，可以创建各种类型的图表，包括类图、时序图和用例图等。它可以通过在 AsciiDoc 中编写 PlantUML 代码来创建图表。
+. https://plantuml.com/zh/[官网^]
+. https://github.com/plantuml/plantuml[GitHub^] 7.9K star
+Graphviz::
+这是一个基于命令行的绘图工具，可以创建各种类型的图表，如流程图、组织结构图和状态转换图等。在 AsciiDoc 中，可以使用 Graphviz 语法来创建图表。
+. https://graphviz.org[官网^]
+. https://gitlab.com/graphviz/graphviz[GitLab^] 1082 star
+
+NOTE: star 统计日期为 2023-04-21。
+
+此类文本绘图工具擅长绘制 UML 类软件图。
+
+=== Mermaid
+
+安装 Mermaid 命令行工具。
+
+[source%nowrap,bash]
+----
+# 安装 mermaid-cli
+npm install -g @mermaid-js/mermaid-cli
+
+# 进入文档目录
+cd docs/antora/modules/ROOT
+
+# 生成操作系统加载 ELF 流程图
+mmdc -i examples/draw/elf.mmd -o assets/images/draw/elf.mmd.svg
+----
+
+TIP: 更多内容请参考 https://github.com/mermaid-js/mermaid-cli[mermaid-cli^]。
+
+源文件文本内容如下：
+
+[source%nowrap,mmd]
+----
+include::example$draw/elf.mmd[]
+----
+
+目标文件图片展示如下：
+
+image::draw/elf.mmd.svg[width=75%]
+
+== ChatGPT 辅助输入
+
+ChatGPT 本身不能直接绘图，但 ChatGPT 可以生成一些文本绘图工具要求的源文件内容。源文件内容必须是基于文本的，如果是基于二进制的则不行，例如：ppt、graffle 等。
+
+== AsciiDoc 展示输出
+
+使用 `image` 标签将文本绘图工具生成的图片引入到文档中，例如：`image::draw/elf.mmd.svg[width=75%]`。
+
+== 集成到 Asciidoctor
+
+在 Asciidoctor 生成文档过程中，通过插件调用绘图工具生成图片，然后将图片引用到文档中。
+
+[source%nowrap,bash]
+----
+#安装绘图插件
+sudo gem install asciidoctor-diagram
+#    Fetching asciidoctor-diagram-plantuml-1.2023.5.gem
+#    Fetching asciidoctor-diagram-2.2.7.gem
+#    Fetching asciidoctor-diagram-ditaamini-1.0.3.gem
+#    Successfully installed asciidoctor-diagram-ditaamini-1.0.3
+#    Successfully installed asciidoctor-diagram-plantuml-1.2023.5
+#    Successfully installed asciidoctor-diagram-2.2.7
+#    Parsing documentation for asciidoctor-diagram-ditaamini-1.0.3
+#    Installing ri documentation for asciidoctor-diagram-ditaamini-1.0.3
+#    Parsing documentation for asciidoctor-diagram-plantuml-1.2023.5
+#    Installing ri documentation for asciidoctor-diagram-plantuml-1.2023.5
+#    Parsing documentation for asciidoctor-diagram-2.2.7
+#    Installing ri documentation for asciidoctor-diagram-2.2.7
+#    Done installing documentation for asciidoctor-diagram-ditaamini, asciidoctor-diagram-plantuml, asciidoctor-diagram after 0 seconds
+#    3 gems installed
+
+#获取 draw-test.adoc
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/peacetrue/learn-asciidoc/master/docs/antora/modules/ROOT/pages/draw-test.adoc)"
+#不使用绘图插件，无法生成图片
+asciidoctor draw-test.adoc
+#指定绘图插件，可以自动生成图片
+asciidoctor -r asciidoctor-diagram draw-test.adoc
+----
+
+TIP: 更多内容请参考 https://docs.asciidoctor.org/diagram-extension/latest/[Asciidoctor Diagram^]。
+
+== 集成到 Antora
+
+[source%nowrap,bash]
+----
+#切换到 antora 文档目录
+cd docs/antora
+
+#生成文档，提示在 xxx 目录下找不到 asciidoctor-kroki
+antora generate playbook.yml
+#  [11:04:20.091] FATAL (antora): Cannot find module 'asciidoctor-kroki'
+#  at path xxx/learn-asciidoc/docs/antora
+#  or /usr/local/lib/node_modules/@antora/site-generator/node_modules/@antora/asciidoc-loader/lib
+#
+
+#在 xxx 目录下，安装 asciidoctor-kroki 插件
+cd /usr/local/lib/node_modules/@antora/site-generator/node_modules/@antora/asciidoc-loader/lib
+npm i asciidoctor-kroki
+
+#安装好插件后，再次生成
+antora generate playbook.yml
+
+#使用 Chrome 打开站点
+open -a 'Google Chrome' build/site/index.html
+----
+
+TIP: 更多内容请参考 https://github.com/ggrossetie/asciidoctor-kroki[asciidoctor-kroki^]。
+
+//  npm list -g
+//  /usr/local/lib/node_modules
