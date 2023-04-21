@@ -8,7 +8,7 @@ asciidoc:
   attributes:
     numbered: '@'
 content:
-  branches: master
+  branches: test
   sources:
   - url: ../../
     start_path: docs/antora
