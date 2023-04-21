@@ -1,6 +1,6 @@
 name: learn-asciidoc
 title: 学习 AsciiDoc
-version: master
+version: test
 asciidoc:
   attributes:
     numbered: '@'
