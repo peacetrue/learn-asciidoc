@@ -1,6 +1,8 @@
 = 测试绘图
 
-[mermaid, target=elf, format=png]
+== mermaid
+
+[mermaid,target=elf,format=png]
 ----
 graph TB
     A[操作系统] --> B(加载elf文件)
@@ -16,4 +18,62 @@ graph TB
     F -- 符号表错误 --> K(加载失败)
     H -- 重定位失败 --> K(加载失败)
     K --> L[结束进程]
+----
+
+== plantuml
+
+[plantuml,target=elf2,format=png]
+----
+@startuml
+title 虚拟内存布局图
+
+rectangle "物理内存" {
+    rectangle "内核空间"
+    rectangle "用户空间"
+}
+
+rectangle "虚拟内存" {
+    rectangle "内核空间"
+    rectangle "用户空间"
+}
+
+rectangle "页目录" {
+    rectangle "页目录表0"
+    rectangle "页目录表1"
+    rectangle "页目录表2"
+    rectangle "页目录表3"
+    rectangle "页目录表4"
+    rectangle "页目录表5"
+    rectangle "页目录表6"
+    rectangle "页目录表7"
+}
+
+rectangle "页表" {
+    rectangle "页表项0"
+    rectangle "页表项1"
+    rectangle "页表项2"
+    rectangle "页表项3"
+    rectangle "页表项4"
+    rectangle "页表项5"
+    rectangle "页表项6"
+    rectangle "页表项7"
+}
+
+"页目录" --> "页目录表0"
+"页目录" --> "页目录表1"
+"页目录" --> "页目录表2"
+"页目录" --> "页目录表3"
+"页目录" --> "页目录表4"
+"页目录" --> "页目录表5"
+"页目录" --> "页目录表6"
+"页目录" --> "页目录表7"
+
+"页目录表0" --> "页表项0"
+"页目录表1" --> "页表项1"
+"页目录表2" --> "页表项2"
+"页目录表3" --> "页表项3"
+"页目录表4" --> "页表项4"
+"页目录表5" --> "页表项5"
+"页目录表6" --> "页表项6"
+"页目录表7" --> "页表项7"
 ----

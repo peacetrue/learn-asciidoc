@@ -20,7 +20,7 @@ NOTE: 更多内容请参考 https://asciidoctor.org/#requirements[Asciidoctor In
 [source%nowrap,bash,subs="specialchars,attributes"]
 ----
 #获取当前 index.adoc
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/peacetrue/{app-name}/master/docs/antora/modules/ROOT/pages/index.adoc)"
+wget https://raw.githubusercontent.com/peacetrue/{app-name}/master/docs/antora/modules/ROOT/pages/index.adoc
 
 #生成 index.html
 asciidoctor index.adoc
@@ -31,7 +31,7 @@ open -a 'Google Chrome' index.html
 
 HTML 页面预览效果如下：
 
-image::start/html-preview.png[width=75%]
+image::start/html-preview.png[width=100%]
 
 == 生成 Antora 站点
 
@@ -57,6 +57,7 @@ open -a 'Google Chrome' build/site/index.html
 
 静态站点预览效果如下：
 
+image::start/antora-preview.png[]
 
 TIP: 更多内容请参考 https://docs.antora.org/antora/latest/playbook/asciidoc-extensions/[Asciidoctor Extensions^]。
 

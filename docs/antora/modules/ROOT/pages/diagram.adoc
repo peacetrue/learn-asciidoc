@@ -69,7 +69,7 @@ include::example$draw/elf.mmd[]
 
 目标文件图片展示如下：
 
-image::draw/elf.mmd.svg[width=75%]
+image::draw/elf.mmd.svg[width=100%]
 
 == ChatGPT 辅助输入
 
@@ -77,7 +77,7 @@ ChatGPT 本身不能直接绘图，但 ChatGPT 可以生成一些文本绘图工
 
 == AsciiDoc 展示输出
 
-使用 `image` 标签将文本绘图工具生成的图片引入到文档中，例如：`image::draw/elf.mmd.svg[width=75%]`。
+使用 `image` 标签将文本绘图工具生成的图片引入到文档中，例如：`image::draw/elf.mmd.svg[width=100%]`。
 
 == 集成到 Asciidoctor
 
@@ -103,7 +103,7 @@ sudo gem install asciidoctor-diagram
 #    3 gems installed
 
 #获取 draw-test.adoc
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/peacetrue/learn-asciidoc/master/docs/antora/modules/ROOT/pages/draw-test.adoc)"
+wget https://raw.githubusercontent.com/peacetrue/learn-asciidoc/master/docs/antora/modules/ROOT/pages/draw-test.adoc
 #不使用绘图插件，无法生成图片
 asciidoctor draw-test.adoc
 #指定绘图插件，可以自动生成图片
@@ -116,22 +116,23 @@ TIP: 更多内容请参考 https://docs.asciidoctor.org/diagram-extension/latest
 
 [source%nowrap,bash]
 ----
-#切换到 antora 文档目录
-cd docs/antora
+#安装 plantuml 插件
+npm i -g asciidoctor-plantuml
 
-#生成文档，提示在 xxx 目录下找不到 asciidoctor-kroki
-antora generate playbook.yml
-#  [11:04:20.091] FATAL (antora): Cannot find module 'asciidoctor-kroki'
-#  at path xxx/learn-asciidoc/docs/antora
-#  or /usr/local/lib/node_modules/@antora/site-generator/node_modules/@antora/asciidoc-loader/lib
-#
-
-#在 xxx 目录下，安装 asciidoctor-kroki 插件
+#安装 kroki 插件
 cd /usr/local/lib/node_modules/@antora/site-generator/node_modules/@antora/asciidoc-loader/lib
 npm i asciidoctor-kroki
 
-#安装好插件后，再次生成
+#切换到 antora 文档目录
+cd docs/antora
+
+#生成文档
 antora generate playbook.yml
+# 如果出现以下提示：在 xxx 目录下找不到 asciidoctor-kroki
+#  [11:04:20.091] FATAL (antora): Cannot find module 'asciidoctor-kroki'
+#  at path xxx/learn-asciidoc/docs/antora
+#  or /usr/local/lib/node_modules/@antora/site-generator/node_modules/@antora/asciidoc-loader/lib
+# 则到 xxx 目录下执行 npm i asciidoctor-kroki
 
 #使用 Chrome 打开站点
 open -a 'Google Chrome' build/site/index.html

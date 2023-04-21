@@ -7,8 +7,10 @@ site:
 asciidoc:
   extensions:
     - asciidoctor-kroki
+    - asciidoctor-plantuml
   attributes:
     kroki-fetch-diagram: true
+    plantuml-server-url: 'http://www.plantuml.com/plantuml@'
     numbered: '@'
 content:
   branches: master
