@@ -1,5 +1,5 @@
-# antora generate playbook-plain.yml
-# antora generate --clean --to-dir public playbook-plain.yml
+# antora generate playbook.yml
+# antora generate --clean --to-dir public playbook.yml
 site:
   title: 学习 AsciiDoc
   url: https://peacetrue.github.io

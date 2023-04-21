@@ -26,7 +26,7 @@ jobs:
         run: |
           npm i asciidoctor-kroki 
           antora generate playbook.yml 
-          ls -la build/site/learn-asciidoc
+          ls -la build/site/learn-asciidoc/test/_images
 
   build-macos:
     runs-on: macos-latest
@@ -44,7 +44,6 @@ jobs:
         run: |
           npm i asciidoctor-kroki 
           antora generate playbook.yml 
-          ls -la build/site/learn-asciidoc
 
   build-windows:
     runs-on: windows-latest
@@ -62,6 +61,5 @@ jobs:
         working-directory: docs/antora
         run: |
           npm i asciidoctor-kroki 
-          antora generate playbook.yml 
-          ls -la build/site/learn-asciidoc
+          antora generate playbook.yml
         shell: powershell
